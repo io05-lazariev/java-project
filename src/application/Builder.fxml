@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
+   <children>
+      <Label fx:id="modeLabel" layoutX="467.0" layoutY="774.0" text="DEBUG">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <BorderPane layoutX="15.0" layoutY="15.0" onMouseClicked="#uploadImage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;">
+         <center>
+            <ImageView fx:id="profileImage" blendMode="SRC_ATOP" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#uploadImage" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../add-profile-image.png" />
+               </image>
+            </ImageView>
+         </center>
+      </BorderPane>
+      <BorderPane layoutX="231.0" layoutY="15.0" prefHeight="150.0" prefWidth="350.0">
+         <top>
+            <Label text="Contact information" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="First name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+                  <Label text="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+               </children>
+            </VBox>
+         </left>
+         <right>
+            <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Last name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+                  <Label text="Phone">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
+      <FlowPane layoutX="231.0" layoutY="179.0" prefHeight="35.0" prefWidth="350.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="66.0" text="Study">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <TextField prefHeight="26.0" prefWidth="276.0" />
+         </children>
+      </FlowPane>
+   </children>
+</AnchorPane>
