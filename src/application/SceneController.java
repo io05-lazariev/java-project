@@ -32,8 +32,7 @@ public class SceneController {
     }
 
     protected void openBuilder() {
-        this.builderController.displayMode();
-        this.builderController.setStage(stage);
+        this.builderController.setStage(this.stage);
         this.scene = new Scene(this.root);
         this.stage.setScene(this.scene);
         this.stage.setResizable(false);
@@ -45,8 +44,9 @@ public class SceneController {
     }
 
     protected void loadBuilder() {
+        String resourceName = "Builder.fxml";
         try {
-            this.loader = new FXMLLoader(getClass().getResource("Builder.fxml"));
+            this.loader = new FXMLLoader(getClass().getResource(resourceName));
             this.root = this.loader.load();
             this.builderController = this.loader.getController();
         } catch (IOException e) {

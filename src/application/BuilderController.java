@@ -2,8 +2,14 @@ package application;
 
 import java.io.File;
 
+import application.handlers.InputHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +22,8 @@ public class BuilderController {
 
     private Stage stage;
 
+    private InputHandler inputHandler = new InputHandler();
+
     @FXML
     Label modeLabel;
 
@@ -24,6 +32,10 @@ public class BuilderController {
 
     protected void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    protected Scene getScene() {
+        return this.stage.getScene();
     }
 
     public void uploadImage(MouseEvent e) {
@@ -42,9 +54,12 @@ public class BuilderController {
         this.editMode = true;
     }
 
-    protected void displayMode() {
-        String modeString = editMode ? "Edit mode" : "Create mode";
-        this.modeLabel.setText(modeString);
+    public void addSkill(ActionEvent e) {
+        TextField skill = this.inputHandler.getInput("#addSkillInput", getScene());
+        String skillText = skill.getText();
+        Node listNode = this.getScene().lookup("#skillsList");
+        ListView<String> skillsList = ((ListView<String>)listNode);
+        skillsList.getItems().add(skillText);
     }
 
 }

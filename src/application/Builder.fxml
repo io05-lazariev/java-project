@@ -2,92 +2,164 @@
 
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="842.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
    <children>
-      <Label fx:id="modeLabel" layoutX="467.0" layoutY="774.0" text="DEBUG">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-      <BorderPane layoutX="15.0" layoutY="15.0" onMouseClicked="#uploadImage" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #D3D3D3;">
-         <center>
-            <ImageView fx:id="profileImage" blendMode="SRC_ATOP" fitHeight="200.0" fitWidth="200.0" onMouseClicked="#uploadImage" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <image>
-                  <Image url="@../add-profile-image.png" />
-               </image>
-            </ImageView>
-         </center>
-      </BorderPane>
-      <BorderPane layoutX="231.0" layoutY="15.0" prefHeight="150.0" prefWidth="350.0">
-         <top>
-            <Label text="Contact information" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </top>
-         <left>
-            <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0">
                <children>
-                  <Label text="First name">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField />
-                  <Label text="Email">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #DCDCDC;">
+                           <children>
+                              <ImageView fx:id="profileImage" blendMode="SRC_ATOP" fitHeight="200.0" fitWidth="200.0" onMousePressed="#uploadImage" pickOnBounds="true" preserveRatio="true">
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <image>
+                                    <Image url="@../add-profile-image.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <BorderPane prefHeight="150.0" prefWidth="350.0">
+                           <top>
+                              <Label text="Contact information" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </top>
+                           <left>
+                              <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="First name">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="firstNameInput" />
+                                    <Label text="Email">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="emailInput" />
+                                 </children>
+                              </VBox>
+                           </left>
+                           <right>
+                              <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="Last name">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="lastNameInput" />
+                                    <Label text="Phone">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="phoneInput" />
+                                 </children>
+                              </VBox>
+                           </right>
+                           <bottom>
+                              <FlowPane prefHeight="35.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label prefHeight="35.0" prefWidth="66.0" text="Study">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="studyInput" prefHeight="26.0" prefWidth="276.0" />
+                                 </children>
+                              </FlowPane>
+                           </bottom>
+                        </BorderPane>
+                     </children>
+                  </HBox>
+                  <SplitPane dividerPositions="0.29797979797979796" layoutX="-6.0" layoutY="213.0" prefHeight="470.0" prefWidth="570.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="183.0">
+                           <children>
+                              <SplitPane dividerPositions="0.06880341880341881" orientation="VERTICAL" prefHeight="469.0" prefWidth="170.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <Label text="Skills" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="169.0">
+                                       <children>
+                                          <ListView fx:id="skillsList" editable="true" prefHeight="168.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="470.0" prefWidth="327.0">
+                           <children>
+                              <SplitPane dividerPositions="0.16229838709677422" orientation="VERTICAL" prefHeight="200.0" prefWidth="398.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.654786150712831" prefHeight="30.0" prefWidth="394.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <TextField fx:id="addSkillInput" layoutY="2.0" prefHeight="26.0" prefWidth="253.0" promptText="add skill">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </TextField>
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <Button fx:id="addSkillBtn" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" onAction="#addSkill" text="+" />
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
-            </VBox>
-         </left>
-         <right>
-            <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label text="Last name">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField />
-                  <Label text="Phone">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <TextField />
-               </children>
-            </VBox>
-         </right>
-      </BorderPane>
-      <FlowPane layoutX="231.0" layoutY="179.0" prefHeight="35.0" prefWidth="350.0">
-         <children>
-            <Label prefHeight="35.0" prefWidth="66.0" text="Study">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <TextField prefHeight="26.0" prefWidth="276.0" />
-         </children>
-      </FlowPane>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
