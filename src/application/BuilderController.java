@@ -2,11 +2,14 @@ package application;
 
 import java.io.File;
 
+import javax.swing.Action;
+
 import application.handlers.InputHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -31,7 +34,32 @@ public class BuilderController {
     @FXML
     ImageView profileImage;
 
+    @FXML
+    ListView<String> skillsList;
+    
+    @FXML
+    ChoiceBox<String> languageLevel;
+
+    @FXML
+    ListView<String> languageList;
+
+    private String[] languageLevels = {
+        "Beginner (A1)",
+        "Pre-intermediate (A2)",
+        "Intermediate (B1)",
+        "Upper-intermediate (B2)",
+        "Advanced (C1)",
+        "Native",
+    };
+
+    private void setDefaults() {
+        this.languageLevel.getItems().addAll(languageLevels);
+        this.languageList.setCellFactory(TextFieldListCell.forListView());
+        this.skillsList.setCellFactory(TextFieldListCell.forListView());
+    }
+
     protected void setStage(Stage stage) {
+        this.setDefaults();
         this.stage = stage;
     }
 
@@ -56,13 +84,26 @@ public class BuilderController {
     }
 
     public void addSkill(ActionEvent e) {
-        TextField skill = this.inputHandler.getInput("#addSkillInput", getScene());    
-        String skillText = skill.getText();
-        skill.setText("");
-        Node listNode = this.getScene().lookup("#skillsList");
-        ListView<String> skillsList = ((ListView<String>)listNode);
-        skillsList.setCellFactory(TextFieldListCell.forListView());
-        skillsList.getItems().add(skillText);
+        String skill = this.extractTextFrom("#addSkillInput");
+        this.addToList(this.skillsList, skill);
+    }
+
+    public void addLangauge(ActionEvent e) {
+        String language = this.extractTextFrom("#addLanguageInput");
+        String languageLevel = (this.languageLevel.getValue() != null) ? this.languageLevel.getValue() : "";
+        language = language + " - " + languageLevel;
+        this.addToList(this.languageList, language);
+    }
+
+    private String extractTextFrom(String inputId) {
+        TextField input = this.inputHandler.getInput(inputId, getScene());
+        String text = input.getText();
+        input.setText("");
+        return text;
+    }
+
+    protected void addToList(ListView<String> list, String item) {
+        list.getItems().add(item);
     }
 
 }

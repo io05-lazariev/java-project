@@ -3,6 +3,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
@@ -18,11 +19,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
    <children>
       <ScrollPane hbarPolicy="NEVER" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="600.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
                      <children>
@@ -106,7 +107,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="692.0" prefWidth="149.0">
                                  <children>
-                                    <ListView fx:id="skillsList" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="150.0" />
+                                    <ListView fx:id="skillsList" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="150.0" />
                                  </children>
                               </AnchorPane>
                           </content>
@@ -126,7 +127,7 @@
                         <Button fx:id="addSkillBtn" mnemonicParsing="false" onAction="#addSkill" prefHeight="30.0" prefWidth="40.0" text="+" />
                      </children>
                   </HBox>
-                  <VBox layoutX="167.0" layoutY="265.0" prefHeight="430.0" prefWidth="420.0">
+                  <VBox layoutX="167.0" layoutY="265.0" prefHeight="407.0" prefWidth="420.0">
                      <children>
                         <TitledPane animated="false" collapsible="false" text="Experience">
                           <content>
@@ -134,7 +135,7 @@
                                  <children>
                                     <VBox prefHeight="182.0" prefWidth="420.0">
                                        <children>
-                                          <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Add experience">
+                                          <Button fx:id="addExperienceBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Add experience">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
@@ -148,8 +149,45 @@
                               <Font size="24.0" />
                            </font>
                         </TitledPane>
+                        <TitledPane animated="false" collapsible="false" prefHeight="175.0" prefWidth="420.0" text="Languages">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TitledPane animated="false" collapsible="false" layoutY="31.0" prefHeight="150.0" prefWidth="410.0" text="Language">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="63.0" prefWidth="417.0">
+                                             <children>
+                                                <ListView fx:id="languageList" layoutY="-1.0" prefHeight="75.0" prefWidth="418.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </TitledPane>
+                                    <HBox fillHeight="false" layoutX="1.0" prefHeight="31.0" prefWidth="416.0">
+                                       <children>
+                                          <TextField fx:id="addLanguageInput" prefHeight="30.0" prefWidth="178.0" promptText="Language" />
+                                          <ChoiceBox fx:id="languageLevel" prefHeight="30.0" prefWidth="195.0" />
+                                          <Button fx:id="addLanguage" mnemonicParsing="false" onAction="#addLangauge" prefHeight="30.0" prefWidth="42.0" text="+" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TitledPane>
                      </children>
                   </VBox>
+                  <Button layoutX="525.0" layoutY="695.0" mnemonicParsing="false" text="Save">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="450.0" layoutY="695.0" mnemonicParsing="false" text="Clear">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
         </content>
