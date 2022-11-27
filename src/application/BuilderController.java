@@ -2,12 +2,12 @@ package application;
 
 import java.io.File;
 
-import javax.swing.Action;
-
 import application.handlers.InputHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BuilderController {
@@ -93,6 +94,24 @@ public class BuilderController {
         String languageLevel = (this.languageLevel.getValue() != null) ? this.languageLevel.getValue() : "";
         language = language + " - " + languageLevel;
         this.addToList(this.languageList, language);
+    }
+
+    public void addExperience(ActionEvent e) {
+        try {
+            Parent expRoot = new FXMLLoader(getClass().getResource("ExperienceForm.fxml")).load();
+            Scene expScene = new Scene(expRoot);
+            Stage expStage = new Stage();
+            expStage.setScene(expScene);
+            expStage.initModality(Modality.WINDOW_MODAL);
+            expStage.setResizable(false);
+            expStage.setTitle("Experience form");
+            Image icon = this.stage.getIcons().get(0);
+            expStage.getIcons().add(icon);
+            expStage.initOwner(((Node)e.getSource()).getScene().getWindow());
+            expStage.show();
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     private String extractTextFrom(String inputId) {

@@ -129,19 +129,24 @@
                   </HBox>
                   <VBox layoutX="167.0" layoutY="265.0" prefHeight="407.0" prefWidth="420.0">
                      <children>
+                        <Button fx:id="addExperienceBtn" mnemonicParsing="false" onAction="#addExperience" prefHeight="30.0" prefWidth="200.0" text="Add experience">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Button>
                         <TitledPane animated="false" collapsible="false" text="Experience">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="182.0" prefWidth="420.0">
-                                       <children>
-                                          <Button fx:id="addExperienceBtn" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="Add experience">
-                                             <font>
-                                                <Font size="13.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </VBox>
+                                    <ScrollPane hbarPolicy="NEVER" prefHeight="167.0" prefWidth="418.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="390.0">
+                                             <children>
+                                                <VBox prefHeight="165.0" prefWidth="391.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
                                  </children>
                               </AnchorPane>
                           </content>
