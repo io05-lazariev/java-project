@@ -21,11 +21,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class BuilderController {
+public class BuilderController extends ControllerBase {
 
     private boolean editMode = false;
-
-    private Stage stage;
 
     private InputHandler inputHandler = new InputHandler();
 
@@ -59,13 +57,10 @@ public class BuilderController {
         this.skillsList.setCellFactory(TextFieldListCell.forListView());
     }
 
+    @Override
     protected void setStage(Stage stage) {
         this.setDefaults();
         this.stage = stage;
-    }
-
-    protected Scene getScene() {
-        return this.stage.getScene();
     }
 
     public void uploadImage(MouseEvent e) {
@@ -98,17 +93,7 @@ public class BuilderController {
 
     public void addExperience(ActionEvent e) {
         try {
-            Parent expRoot = new FXMLLoader(getClass().getResource("ExperienceForm.fxml")).load();
-            Scene expScene = new Scene(expRoot);
-            Stage expStage = new Stage();
-            expStage.setScene(expScene);
-            expStage.initModality(Modality.WINDOW_MODAL);
-            expStage.setResizable(false);
-            expStage.setTitle("Experience form");
-            Image icon = this.stage.getIcons().get(0);
-            expStage.getIcons().add(icon);
-            expStage.initOwner(((Node)e.getSource()).getScene().getWindow());
-            expStage.show();
+            this.sceneController.openExperienceForm();
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
