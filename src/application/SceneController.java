@@ -44,6 +44,10 @@ public class SceneController extends ControllerBase {
     public void openExperienceForm() {
         Stage expStage = this.initExperienceFormStage();
         this.loadController("ExperienceForm.fxml");
+        if (builderController != null) {
+            this.experienceFormController.setParentController(this.builderController);
+        }
+        this.experienceFormController.fillYears();
         this.experienceFormController.setStage(expStage, Modality.APPLICATION_MODAL);
         this.openFromController(this.experienceFormController);
     }

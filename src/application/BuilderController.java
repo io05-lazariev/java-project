@@ -2,30 +2,26 @@ package application;
 
 import java.io.File;
 
-import application.handlers.InputHandler;
+import application.objects.Experience;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BuilderController extends ControllerBase {
 
     private boolean editMode = false;
-
-    private InputHandler inputHandler = new InputHandler();
 
     @FXML
     Label modeLabel;
@@ -41,6 +37,9 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     ListView<String> languageList;
+
+    @FXML
+    VBox experiencesBox;
 
     private String[] languageLevels = {
         "Beginner (A1)",
@@ -98,12 +97,32 @@ public class BuilderController extends ControllerBase {
             System.out.println(exception.getMessage());
         }
     }
+    
+    protected void doAddExperience(Experience experience) {
+        VBox expBox = new VBox();
 
-    private String extractTextFrom(String inputId) {
-        TextField input = this.inputHandler.getInput(inputId, getScene());
-        String text = input.getText();
-        input.setText("");
-        return text;
+        Label company = new Label(experience.getCompany());
+        Font companyFont = Font.font("System", FontWeight.BOLD, FontPosture.REGULAR, 18);
+        company.setFont(companyFont);
+
+        Label position = new Label(experience.getPosition());
+        Font positionFont = Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 16);
+        position.setFont(positionFont);
+
+        Label years = new Label(experience.getYears());
+        Font yearsFont = Font.font("System", FontWeight.THIN, FontPosture.REGULAR, 12);
+        years.setFont(yearsFont);
+        
+        Label description = new Label(experience.getShortDescription());
+        expBox.getChildren().addAll(company, position, years, description);
+        expBox.setStyle(
+            "-fx-padding: 5;" +
+            "-fx-border-style: solid inside;" + 
+            "-fx-border-width: 1;" +
+            "-fx-border-insets: 5;" +
+            "-fx-border-color: black;"
+        );
+        experiencesBox.getChildren().add(expBox);
     }
 
     protected void addToList(ListView<String> list, String item) {

@@ -1,6 +1,8 @@
 package application;
 
+import application.handlers.InputHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputControl;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -9,6 +11,8 @@ public class ControllerBase {
     protected Stage stage;
 
     protected SceneController sceneController;
+
+    protected InputHandler inputHandler = new InputHandler();
 
     protected void setSceneController(SceneController sceneController) {
         this.sceneController = sceneController;
@@ -33,6 +37,17 @@ public class ControllerBase {
 
     protected Scene getScene() {
         return this.stage.getScene();
+    }
+
+    protected Class<?> getType() {
+        return this.getClass();
+    }
+
+    protected String extractTextFrom(String inputId) {
+        TextInputControl input = this.inputHandler.getInput(inputId, getScene());
+        String text = input.getText();
+        input.setText("");
+        return text;
     }
 
 }

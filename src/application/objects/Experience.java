@@ -20,11 +20,23 @@ public class Experience {
         this.company = company;
         this.position = position;
         this.shortDescription = shortDescription;
-        String finished = "Present";
-        if (yearFinished != 0) {
-            finished = Integer.toString(yearFinished);
-        }
-        String workingYears = Integer.toString(yearStarted) + "-" + finished;
+        String finished = Integer.toString(yearFinished);
+        String started = Integer.toString(yearStarted);
+        String workingYears = started + "-" + finished;
+        this.years = workingYears;
+    }
+
+    public Experience(
+        String company,
+        String position,
+        int yearStarted,
+        String shortDescription
+    ) {
+        this.company = company;
+        this.position = position;
+        this.shortDescription = shortDescription;
+        String started = Integer.toString(yearStarted);
+        String workingYears = started + "-Present";
         this.years = workingYears;
     }
 
