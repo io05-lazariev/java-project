@@ -19,9 +19,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuilderController">
    <children>
-      <ScrollPane hbarPolicy="NEVER" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="700.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <content>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="751.0" prefWidth="600.0">
                <children>
@@ -138,9 +138,9 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="167.0" prefWidth="418.0">
+                                    <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="167.0" prefWidth="418.0" vbarPolicy="ALWAYS" vmax="50.0">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="390.0">
+                                        <AnchorPane fx:id="experiencePane" minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="390.0">
                                              <children>
                                                 <VBox fx:id="experiencesBox" prefHeight="165.0" prefWidth="391.0" />
                                              </children>
@@ -158,11 +158,11 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <TitledPane animated="false" collapsible="false" layoutY="31.0" prefHeight="150.0" prefWidth="410.0" text="Language">
+                                    <TitledPane animated="false" collapsible="false" layoutY="30.0" prefHeight="92.0" prefWidth="378.0" text="Language">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="63.0" prefWidth="417.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="409.0">
                                              <children>
-                                                <ListView fx:id="languageList" layoutY="-1.0" prefHeight="75.0" prefWidth="418.0" />
+                                                <ListView fx:id="languageList" layoutY="-1.0" prefHeight="63.0" prefWidth="418.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
@@ -184,11 +184,6 @@
                      </children>
                   </VBox>
                   <Button layoutX="525.0" layoutY="695.0" mnemonicParsing="false" text="Save">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="450.0" layoutY="695.0" mnemonicParsing="false" text="Clear">
                      <font>
                         <Font size="18.0" />
                      </font>

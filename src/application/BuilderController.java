@@ -12,6 +12,7 @@ import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -20,11 +21,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class BuilderController extends ControllerBase {
-
-    private boolean editMode = false;
-
-    @FXML
-    Label modeLabel;
 
     @FXML
     ImageView profileImage;
@@ -40,6 +36,9 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     VBox experiencesBox;
+
+    @FXML
+    AnchorPane experiencePane;
 
     private String[] languageLevels = {
         "Beginner (A1)",
@@ -72,10 +71,6 @@ public class BuilderController extends ControllerBase {
         if (image != null) {
             profileImage.setImage(image);
         }
-    }
-
-    protected void enableEditMode() {
-        this.editMode = true;
     }
 
     public void addSkill(ActionEvent e) {
@@ -122,7 +117,18 @@ public class BuilderController extends ControllerBase {
             "-fx-border-insets: 5;" +
             "-fx-border-color: black;"
         );
+        expBox.setOnMouseClicked((e) -> {
+            this.editExperience(experience);
+        });
         experiencesBox.getChildren().add(expBox);
+    }
+
+    protected void editExperience(Experience experience) {
+        try {
+            this.sceneController.openExperienceForm(experience);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     protected void addToList(ListView<String> list, String item) {

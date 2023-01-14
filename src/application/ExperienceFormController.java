@@ -5,8 +5,12 @@ import java.time.Year;
 import application.objects.Experience;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class ExperienceFormController extends ControllerBase {
     
@@ -23,6 +27,15 @@ public class ExperienceFormController extends ControllerBase {
     @FXML
     CheckBox finishedCheckBox;
 
+    @FXML
+    TextField companyField;
+
+    @FXML
+    TextField positionField;
+
+    @FXML
+    TextArea descriptionField;
+
     protected void setParentController(BuilderController parent) {
         this.parentController = parent;
     }
@@ -32,7 +45,7 @@ public class ExperienceFormController extends ControllerBase {
     }
 
     protected void fillYears() {
-        int yearsGap = 100;
+        int yearsGap = 70;
         int currentYear = Year.now().getValue();
         int year = currentYear-yearsGap;
         Integer[] years = new Integer[yearsGap];
@@ -50,6 +63,12 @@ public class ExperienceFormController extends ControllerBase {
     public void saveExperience() {
         int yearStarted = this.inputHandler.getChoice(yearsFromCB);
         int yearFinished = this.inputHandler.getChoice(yearsToCB);
+        if (yearFinished < yearStarted) {
+            Alert errorAlert = new Alert(AlertType.ERROR);
+            errorAlert.setContentText("Year finished cannot be less than year started!");
+            errorAlert.showAndWait();
+            return;
+        }
         String company = this.extractTextFrom("#companyField");
         String position = this.extractTextFrom("#positionField");
         String description = this.extractTextFrom("#descriptionField");
@@ -69,6 +88,22 @@ public class ExperienceFormController extends ControllerBase {
     public void checkFinished(ActionEvent e) {
         boolean finished = finishedCheckBox.isSelected();
         yearsToCB.setDisable(!finished);
+    }
+
+    public void editExperience(Experience experience) {
+        this.companyField.setText(experience.getCompany());
+        this.positionField.setText(experience.getPosition());
+        this.descriptionField.setText(experience.getShortDescription());
+        this.yearsFromCB.setValue(experience.getStartedYear());
+        this.finishedCheckBox.setSelected(experience.isFinished());
+        if (experience.isFinished()) {
+            this.yearsToCB.setValue(experience.getFinishedYear());
+            this.yearsToCB.setDisable(false);
+        }
+        else {
+            this.yearsToCB.setValue(Year.now().getValue());
+            this.yearsToCB.setDisable(true);
+        }
     }
 
 }

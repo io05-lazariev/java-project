@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 
+import application.objects.Experience;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -33,14 +34,6 @@ public class SceneController extends ControllerBase {
         this.openFromController(builderController);
     }
 
-    public void edit(ActionEvent e) {
-        this.setStageFromEvent(e);
-        String resourceName = "Builder.fxml";
-        this.loadController(resourceName);
-        this.builderController.enableEditMode();
-        this.openFromController(builderController);
-    }
-
     public void openExperienceForm() {
         Stage expStage = this.initExperienceFormStage();
         this.loadController("ExperienceForm.fxml");
@@ -48,6 +41,18 @@ public class SceneController extends ControllerBase {
             this.experienceFormController.setParentController(this.builderController);
         }
         this.experienceFormController.fillYears();
+        this.experienceFormController.setStage(expStage, Modality.APPLICATION_MODAL);
+        this.openFromController(this.experienceFormController);
+    }
+
+    public void openExperienceForm(Experience experience) {
+        Stage expStage = this.initExperienceFormStage();
+        this.loadController("ExperienceForm.fxml");
+        if (builderController != null) {
+            this.experienceFormController.setParentController(this.builderController);
+        }
+        this.experienceFormController.fillYears();
+        this.experienceFormController.editExperience(experience);
         this.experienceFormController.setStage(expStage, Modality.APPLICATION_MODAL);
         this.openFromController(this.experienceFormController);
     }

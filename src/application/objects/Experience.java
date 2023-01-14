@@ -10,6 +10,8 @@ public class Experience {
 
     protected String shortDescription;
 
+    protected boolean finished;
+
     public Experience(
         String company,
         String position,
@@ -21,6 +23,7 @@ public class Experience {
         this.position = position;
         this.shortDescription = shortDescription;
         String finished = Integer.toString(yearFinished);
+        this.finished = true;
         String started = Integer.toString(yearStarted);
         String workingYears = started + "-" + finished;
         this.years = workingYears;
@@ -36,6 +39,7 @@ public class Experience {
         this.position = position;
         this.shortDescription = shortDescription;
         String started = Integer.toString(yearStarted);
+        this.finished = false;
         String workingYears = started + "-Present";
         this.years = workingYears;
     }
@@ -54,6 +58,24 @@ public class Experience {
 
     public String getShortDescription() {
         return this.shortDescription;
+    }
+
+    public int getStartedYear() {
+        String[] years = splitYears();
+        return Integer.parseInt(years[0]);
+    }
+
+    public int getFinishedYear() {
+        String[] years = this.splitYears();
+        return Integer.parseInt(years[1]);
+    }
+
+    public boolean isFinished() {
+        return this.finished;
+    }
+
+    protected String[] splitYears() {
+        return this.years.split("-");
     }
 
 }
