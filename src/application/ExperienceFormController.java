@@ -18,6 +18,8 @@ public class ExperienceFormController extends ControllerBase {
 
     protected BuilderController parentController;
 
+    protected boolean editMode = false;
+
     @FXML
     ChoiceBox<Integer> yearsFromCB;
 
@@ -69,9 +71,9 @@ public class ExperienceFormController extends ControllerBase {
             errorAlert.showAndWait();
             return;
         }
-        String company = this.extractTextFrom("#companyField");
-        String position = this.extractTextFrom("#positionField");
-        String description = this.extractTextFrom("#descriptionField");
+        String company = this.companyField.getText();
+        String position = this.positionField.getText();
+        String description = this.descriptionField.getText();
         if (finishedCheckBox.isSelected()) {
             this.experience = new Experience(company, position, yearStarted, yearFinished, description);
         }
@@ -91,6 +93,8 @@ public class ExperienceFormController extends ControllerBase {
     }
 
     public void editExperience(Experience experience) {
+        this.editMode = true;
+        this.experience = experience;
         this.companyField.setText(experience.getCompany());
         this.positionField.setText(experience.getPosition());
         this.descriptionField.setText(experience.getShortDescription());

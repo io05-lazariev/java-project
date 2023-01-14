@@ -162,7 +162,7 @@
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="409.0">
                                              <children>
-                                                <ListView fx:id="languageList" layoutY="-1.0" prefHeight="63.0" prefWidth="418.0" />
+                                                <ListView fx:id="languageList" editable="true" layoutY="-1.0" onEditCommit="#updateLanguage" prefHeight="63.0" prefWidth="418.0" />
                                              </children>
                                           </AnchorPane>
                                       </content>
@@ -183,11 +183,16 @@
                         </TitledPane>
                      </children>
                   </VBox>
-                  <Button layoutX="525.0" layoutY="695.0" mnemonicParsing="false" text="Save">
+                  <Button fx:id="saveCvPdf" layoutX="525.0" layoutY="695.0" mnemonicParsing="false" onAction="#saveCV" text="Save">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="pdfSavedLabel" layoutX="11.0" layoutY="697.0" prefHeight="35.0" prefWidth="502.0" textFill="#00bf00">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
         </content>

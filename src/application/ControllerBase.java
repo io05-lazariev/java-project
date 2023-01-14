@@ -43,11 +43,4 @@ public class ControllerBase {
         return this.getClass();
     }
 
-    protected String extractTextFrom(String inputId) {
-        TextInputControl input = this.inputHandler.getInput(inputId, getScene());
-        String text = input.getText();
-        input.setText("");
-        return text;
-    }
-
 }

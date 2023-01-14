@@ -1,6 +1,11 @@
 package application.objects;
 
 public class Experience {
+
+    /**
+     * Internal id relative to human instance.
+     */
+    protected int id;
     
     protected String company;
 
