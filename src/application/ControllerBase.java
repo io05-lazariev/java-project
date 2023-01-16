@@ -2,7 +2,6 @@ package application;
 
 import application.handlers.InputHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.TextInputControl;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 

@@ -2,6 +2,9 @@ package application;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -11,7 +14,10 @@ import application.objects.Experience;
 import application.objects.Human;
 import application.objects.Language;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -47,6 +53,11 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     ListView<String> languageList;
+
+    @FXML
+    Button addLanguage;
+
+    ArrayList<Language> languagesList = new ArrayList<Language>();
 
     @FXML
     VBox experiencesBox;
@@ -105,16 +116,58 @@ public class BuilderController extends ControllerBase {
         String languageLevel = (this.languageLevel.getValue() != null) ? this.languageLevel.getValue() : "";
         Language language = new Language(lang, languageLevel);
         this.human.addLangauge(language);
-        this.addToList(this.languageList, language.getLanguageLevel());
+        this.languagesList.add(language);
+        String languageString = lang + " - " + languageLevel;
+        this.addToList(this.languageList, languageString);
+        this.addLanguageInput.setText("");
     }
 
-    public void startLanguageEdit(ActionEvent e) {
+    public void startLanguageEdit(Event e) {
+        if (e.getSource().getClass() != this.languageList.getClass()) {
+            return;
+        }
+        this.doLanguageEdit((ListView.EditEvent<String>) e);
+    }
+
+    protected void doLanguageEdit(ListView.EditEvent<String> entry) {
         this.languageList.setDisable(true);
+        int languageIndex = entry.getIndex();
+        this.addLanguage.setText("OK");
+        this.addLanguage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                updateLanguage(languageIndex);
+            }
+        });
+        Language languageEntry = languagesList.get(languageIndex);
+        this.addLanguageInput.setText(languageEntry.getLanguage());
+        List<String> languageLevelsList = Arrays.asList(this.languageLevels);
+        int langLevelIndex = languageLevelsList.indexOf(languageEntry.getLevel());
+        this.languageLevel.getSelectionModel().select(langLevelIndex);
     }
 
-    public void updateLanguage(ActionEvent e) {
+    public void updateLanguage(int langIndex) {
+        Language editedLanguage = this.human.getLanguageByIndex(langIndex);
         String lang = this.addLanguageInput.getText();
         String languageLevel = this.languageLevel.getValue();
+        editedLanguage.setLanguage(lang);
+        editedLanguage.setLevel(languageLevel);
+        this.human.setLanguage(editedLanguage, langIndex);
+        this.languagesList.set(langIndex, editedLanguage);
+        this.languageList.setDisable(false);
+        this.languageList.getItems().set(langIndex, editedLanguage.getLanguageLevel());
+        this.addLanguageInput.setText("");
+        this.setAddLanguageButtonDefault();
+    }
+
+    protected void setAddLanguageButtonDefault() {
+        this.addLanguage.setText("+");
+        this.addLanguage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                addLangauge(event);
+            }
+        });
     }
 
     public void addExperience(ActionEvent e) {

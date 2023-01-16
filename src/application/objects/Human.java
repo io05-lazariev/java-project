@@ -15,11 +15,11 @@ public class Human {
 
     protected String study;
 
-    protected ArrayList<String> skills;
+    protected ArrayList<String> skills = new ArrayList<String>();
 
-    protected ArrayList<Language> languages;
+    protected ArrayList<Language> languages = new ArrayList<Language>();
 
-    protected ArrayList<Experience> experiences;
+    protected ArrayList<Experience> experiences = new ArrayList<Experience>();
 
     protected File profileImage;
 
@@ -47,8 +47,16 @@ public class Human {
         this.skills.add(skill);
     }
 
+    public void setLanguage(Language language, int langIndex) {
+        this.languages.set(langIndex, language);
+    }
+
     public void addLangauge(Language language) {
         this.languages.add(language);
+    }
+
+    public Language getLanguageByIndex(int languageIndex) {
+        return this.languages.get(languageIndex);
     }
 
     public void addExperience(Experience experience) {
