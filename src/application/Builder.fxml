@@ -53,7 +53,7 @@
                            <left>
                               <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="First name">
+                                    <Label text="First name*">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -71,7 +71,7 @@
                            <right>
                               <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Last name">
+                                    <Label text="Last name*">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

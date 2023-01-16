@@ -1,15 +1,13 @@
 package application;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
 
+import application.objects.CV;
 import application.objects.Experience;
 import application.objects.Human;
 import application.objects.Language;
@@ -38,6 +36,21 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     ImageView profileImage;
+
+    @FXML
+    TextField firstNameInput;
+    
+    @FXML
+    TextField lastNameInput;
+    
+    @FXML
+    TextField emailInput;
+    
+    @FXML
+    TextField phoneInput;
+
+    @FXML
+    TextField studyInput;
 
     @FXML
     TextField addSkillInput;
@@ -98,8 +111,11 @@ public class BuilderController extends ControllerBase {
         fileChooser.getExtensionFilters().add(allowedExtensions);
         fileChooser.setTitle("Select profile picture");
         File imageFile = fileChooser.showOpenDialog(this.stage);
+        if (imageFile == null) {
+            return;
+        }
         this.human.setProfileImage(imageFile);
-        Image image = new Image(imageFile.toURI().toString(), profileImage.getFitWidth(), profileImage.getFitHeight(), false, true);
+        Image image = new Image(imageFile.toURI().toString(), this.profileImage.getFitWidth(), this.profileImage.getFitHeight(), false, true);
         if (image != null) {
             profileImage.setImage(image);
         }
@@ -222,25 +238,55 @@ public class BuilderController extends ControllerBase {
     }
 
     public void saveCV() {
+        if (!this.validateInputs()) {
+            this.pdfSavedLabel.setStyle("-fx-text-fill: red;");
+            this.pdfSavedLabel.setText("First name AND Last name must be set!");
+            return;
+        }
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf");
         FileChooser saver = new FileChooser();
         saver.getExtensionFilters().add(extensionFilter);
         try {
             File document = saver.showSaveDialog(this.stage);
             if (document != null) {
-                Path documentPath = document.toPath();
-                String savePath = documentPath.toString();
                 PdfWriter writer = new PdfWriter(document);
-                PdfDocument cv = new PdfDocument(writer);
-                cv.addNewPage();
-                Document cvDoc = new Document(cv);
+                CV.makeCV(writer, human);
+                this.pdfSavedLabel.setStyle("-fx-text-fill: green;");
                 this.pdfSavedLabel.setText("CV saved successfully!");
-                cvDoc.close();
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected boolean validateInputs() {
+        String firstName = this.firstNameInput.getText().trim();
+        String lastName = this.lastNameInput.getText().trim();
+        if (firstName == "" || lastName == "") {
+            String errorStyle = "-fx-text-box-border: #B22222; -fx-focus-color: #B22222;";
+            String okStyle = "-fx-text-box-border: black;";
+            if (firstName == "") {
+                this.firstNameInput.setStyle(errorStyle);
+            } else {
+                this.firstNameInput.setStyle(okStyle);
+            }
+            if (lastName == "") {
+                this.lastNameInput.setStyle(errorStyle);
+            } else {
+                this.lastNameInput.setStyle(okStyle);
+            }
+            return false;
+        }
+        this.human.setFirstName(firstName);
+        this.human.setLastName(lastName);
+        String email = this.emailInput.getText();
+        String phone = this.phoneInput.getText();
+        String study = this.studyInput.getText();
+        this.human.setEmail(email);
+        this.human.setPhone(phone);
+        this.human.setStudy(study);
+        return true;
     }
 
 }

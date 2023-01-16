@@ -31,6 +31,10 @@ public class Human {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -65,6 +69,10 @@ public class Human {
 
     public void setProfileImage(File image) {
         this.profileImage = image;
+    }
+
+    public File getProfileImage() {
+        return this.profileImage;
     }
 
 }
