@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.itextpdf.kernel.pdf.PdfWriter;
-
 import application.objects.CV;
 import application.objects.Experience;
 import application.objects.Human;
@@ -249,10 +247,14 @@ public class BuilderController extends ControllerBase {
         try {
             File document = saver.showSaveDialog(this.stage);
             if (document != null) {
-                PdfWriter writer = new PdfWriter(document);
-                CV.makeCV(writer, human);
+                CV.bakeCV(human, document.getPath());
+                /*PdfWriter writer = new PdfWriter(document.getPath());
+                PdfDocument cvPdf = new PdfDocument(writer);
+                Document pdfDoc = new Document(cvPdf);
+                CV.makeCV(pdfDoc, human);
+                pdfDoc.close();
                 this.pdfSavedLabel.setStyle("-fx-text-fill: green;");
-                this.pdfSavedLabel.setText("CV saved successfully!");
+                this.pdfSavedLabel.setText("CV saved successfully!");*/
             }
         }
         catch (Exception e) {
