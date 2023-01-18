@@ -249,13 +249,8 @@ public class BuilderController extends ControllerBase {
             File document = saver.showSaveDialog(this.stage);
             if (document != null) {
                 CV.bakeCV(human, document.getPath());
-                /*PdfWriter writer = new PdfWriter(document.getPath());
-                PdfDocument cvPdf = new PdfDocument(writer);
-                Document pdfDoc = new Document(cvPdf);
-                CV.makeCV(pdfDoc, human);
-                pdfDoc.close();
                 this.pdfSavedLabel.setStyle("-fx-text-fill: green;");
-                this.pdfSavedLabel.setText("CV saved successfully!");*/
+                this.pdfSavedLabel.setText("CV saved successfully!");
             }
         }
         catch (Exception e) {

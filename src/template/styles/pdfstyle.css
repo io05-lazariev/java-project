@@ -1,10 +1,7 @@
 body {
-    font-family: monospace;
     font-weight: bold;
-    font-size: 18pt;
-    font-variant: all-petite-caps;
-    overflow-wrap: break-word;
-    background-color: mintcream;
+    font-size: 12pt;
+    overflow-wrap: anywhere;
 }
 
 #profilePic {
@@ -35,6 +32,7 @@ body {
 }
 
 #experienceSection {
+    width: 400px;
     display: inline-block;
     padding-left: 20px;
 }
