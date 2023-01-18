@@ -1,8 +1,51 @@
+body {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 18pt;
+    font-variant: all-petite-caps;
+    overflow-wrap: break-word;
+    background-color: mintcream;
+}
+
 #profilePic {
-    display: block;
-    position: relative;
+    display: inline-block;
+    border: 5px solid black;
 }
 
 .infoSection {
-    position: relative;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+#passive {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#skillsSection {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    border: 2px solid black;
+}
+
+#languageSection {
+    display: block;
+    width: 200px;
+}
+
+#experienceSection {
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.experienceEntry {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+}
+
+.tab {
+    display: inline-block;
+    margin-left: 40px;
 }

@@ -123,6 +123,7 @@ public class BuilderController extends ControllerBase {
         String skill = this.addSkillInput.getText();
         this.human.addSkill(skill);
         this.addToList(this.skillsList, skill);
+        this.addSkillInput.setText("");
     }
 
     public void addLangauge(ActionEvent e) {
@@ -238,7 +239,7 @@ public class BuilderController extends ControllerBase {
     public void saveCV() {
         if (!this.validateInputs()) {
             this.pdfSavedLabel.setStyle("-fx-text-fill: red;");
-            this.pdfSavedLabel.setText("First name AND Last name must be set!");
+            this.pdfSavedLabel.setText("* - required field, ** - at least one required!");
             return;
         }
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf");
@@ -266,28 +267,46 @@ public class BuilderController extends ControllerBase {
         String firstName = this.firstNameInput.getText().trim();
         String lastName = this.lastNameInput.getText().trim();
         if (firstName == "" || lastName == "") {
-            String errorStyle = "-fx-text-box-border: #B22222; -fx-focus-color: #B22222;";
-            String okStyle = "-fx-text-box-border: black;";
-            if (firstName == "") {
-                this.firstNameInput.setStyle(errorStyle);
-            } else {
-                this.firstNameInput.setStyle(okStyle);
-            }
-            if (lastName == "") {
-                this.lastNameInput.setStyle(errorStyle);
-            } else {
-                this.lastNameInput.setStyle(okStyle);
-            }
+            // Validation failed for one of those inputs.
+            this.validationFailed(this.firstNameInput);
+            this.validationFailed(this.lastNameInput);
             return false;
         }
         this.human.setFirstName(firstName);
         this.human.setLastName(lastName);
-        String email = this.emailInput.getText();
-        String phone = this.phoneInput.getText();
-        String study = this.studyInput.getText();
+        String email = this.emailInput.getText().trim();
+        String phone = this.phoneInput.getText().trim();
+        if (email == "" && phone == "") {
+            this.validationFailed(this.emailInput);
+            this.validationFailed(this.phoneInput);
+            return false;
+        }
+        String study = this.studyInput.getText().trim();
         this.human.setEmail(email);
         this.human.setPhone(phone);
+        if (study == "") {
+            study = "None";
+        }
         this.human.setStudy(study);
+        return this.validationPassed();
+    }
+
+    protected void validationFailed(TextField input) {
+        String errorStyle = "-fx-text-box-border: #B22222; -fx-focus-color: #B22222;";
+        String okStyle = "-fx-text-box-border: black;";
+        if (input.getText().trim() == "") {
+            input.setStyle(errorStyle);
+        } else {
+            input.setStyle(okStyle);
+        }
+    }
+
+    protected boolean validationPassed() {
+        String okStyle = "-fx-text-box-border: black;";
+        this.firstNameInput.setStyle(okStyle);
+        this.lastNameInput.setStyle(okStyle);
+        this.emailInput.setStyle(okStyle);
+        this.phoneInput.setStyle(okStyle);
         return true;
     }
 

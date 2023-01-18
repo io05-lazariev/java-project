@@ -59,7 +59,7 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="firstNameInput" />
-                                    <Label text="Email">
+                                    <Label text="Email**">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -77,7 +77,7 @@
                                        </font>
                                     </Label>
                                     <TextField fx:id="lastNameInput" />
-                                    <Label text="Phone">
+                                    <Label text="Phone**">
                                        <font>
                                           <Font size="18.0" />
                                        </font>

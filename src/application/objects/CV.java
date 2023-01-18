@@ -54,8 +54,12 @@ public class CV {
             valueMap.put("profilePicture", human.getProfileImage().getPath());
         }
         valueMap.put("fullName", human.getFullName());
-        valueMap.put("phone", human.getPhone());
-        valueMap.put("email", human.getEmail());
+        if (human.getPhone() != "") {
+            valueMap.put("phone", human.getPhone());
+        }
+        if (human.getEmail() != "") {
+            valueMap.put("email", human.getEmail());
+        }
         valueMap.put("study", human.getStudy());
         valueMap.put("skills", human.getSkills());
 
