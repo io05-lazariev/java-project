@@ -75,12 +75,31 @@ public class ExperienceFormController extends ControllerBase {
         String position = this.positionField.getText();
         String description = this.descriptionField.getText();
         if (finishedCheckBox.isSelected()) {
-            this.experience = new Experience(company, position, yearStarted, yearFinished, description);
+            if (editMode) {
+                this.experience.updateFields(company, position, yearStarted, yearFinished, description);
+            } else {
+                this.experience = new Experience(company, position, yearStarted, yearFinished, description);
+            }
         }
         else {
-            this.experience = new Experience(company, position, yearStarted, description);
+            if (editMode) {
+                this.experience.updateFields(company, position, yearStarted, description);
+            } else {
+                this.experience = new Experience(company, position, yearStarted, description);
+            }
         }
-        this.parentController.doAddExperience(experience);
+        if (editMode) {
+            this.parentController.updateExperience(this.experience);
+        } else {
+            this.parentController.doAddExperience(this.experience);
+        }
+        this.clearInputs();
+    }
+
+    private void clearInputs() {
+        this.companyField.setText("");
+        this.positionField.setText("");
+        this.descriptionField.setText("");
     }
 
     public void cancel() {

@@ -1,15 +1,11 @@
 package application;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-
+import application.objects.CV;
 import application.objects.Experience;
 import application.objects.Human;
 import application.objects.Language;
@@ -17,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -38,6 +35,21 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     ImageView profileImage;
+
+    @FXML
+    TextField firstNameInput;
+    
+    @FXML
+    TextField lastNameInput;
+    
+    @FXML
+    TextField emailInput;
+    
+    @FXML
+    TextField phoneInput;
+
+    @FXML
+    TextField studyInput;
 
     @FXML
     TextField addSkillInput;
@@ -64,6 +76,9 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     AnchorPane experiencePane;
+
+    @FXML
+    ListView<VBox> experienceList;
 
     @FXML
     Label pdfSavedLabel;
@@ -98,8 +113,11 @@ public class BuilderController extends ControllerBase {
         fileChooser.getExtensionFilters().add(allowedExtensions);
         fileChooser.setTitle("Select profile picture");
         File imageFile = fileChooser.showOpenDialog(this.stage);
+        if (imageFile == null) {
+            return;
+        }
         this.human.setProfileImage(imageFile);
-        Image image = new Image(imageFile.toURI().toString(), profileImage.getFitWidth(), profileImage.getFitHeight(), false, true);
+        Image image = new Image(imageFile.toURI().toString(), this.profileImage.getFitWidth(), this.profileImage.getFitHeight(), false, true);
         if (image != null) {
             profileImage.setImage(image);
         }
@@ -109,6 +127,7 @@ public class BuilderController extends ControllerBase {
         String skill = this.addSkillInput.getText();
         this.human.addSkill(skill);
         this.addToList(this.skillsList, skill);
+        this.addSkillInput.setText("");
     }
 
     public void addLangauge(ActionEvent e) {
@@ -183,18 +202,22 @@ public class BuilderController extends ControllerBase {
         VBox expBox = new VBox();
 
         Label company = new Label(experience.getCompany());
+        company.setId("companyField");
         Font companyFont = Font.font("System", FontWeight.BOLD, FontPosture.REGULAR, 18);
         company.setFont(companyFont);
 
         Label position = new Label(experience.getPosition());
+        position.setId("positionField");
         Font positionFont = Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 16);
         position.setFont(positionFont);
 
         Label years = new Label(experience.getYears());
+        years.setId("yearsField");
         Font yearsFont = Font.font("System", FontWeight.THIN, FontPosture.REGULAR, 12);
         years.setFont(yearsFont);
         
         Label description = new Label(experience.getShortDescription());
+        description.setId("descriptionField");
         expBox.getChildren().addAll(company, position, years, description);
         expBox.setStyle(
             "-fx-padding: 5;" +
@@ -206,7 +229,34 @@ public class BuilderController extends ControllerBase {
         expBox.setOnMouseClicked((e) -> {
             this.editExperience(experience);
         });
-        experiencesBox.getChildren().add(expBox);
+        //experiencePane.getChildren().add(expBox);
+        //experiencesBox.getChildren().add(expBox);
+        this.experienceList.getItems().add(expBox);
+    }
+
+    protected void updateExperience(Experience experience) {
+        int experienceId = experience.getId();
+        VBox experienceEntry = this.experienceList.getItems().get(experienceId);
+        for(Node field : experienceEntry.getChildren()) {
+            if (field.getClass() != Label.class) {
+                continue;
+            }
+            Label fieldLabel = (Label) field;
+            switch (field.getId()) {
+                case "companyField":
+                    fieldLabel.setText(experience.getCompany());
+                    break;
+                case "positionField":
+                    fieldLabel.setText(experience.getPosition());
+                    break;
+                case "yearsField":
+                    fieldLabel.setText(experience.getYears());
+                    break;
+                case "descriptionField":
+                    fieldLabel.setText(experience.getShortDescription());
+                    break;
+            }
+        }
     }
 
     protected void editExperience(Experience experience) {
@@ -222,25 +272,72 @@ public class BuilderController extends ControllerBase {
     }
 
     public void saveCV() {
+        if (!this.validateInputs()) {
+            this.pdfSavedLabel.setStyle("-fx-text-fill: red;");
+            this.pdfSavedLabel.setText("* - required field, ** - at least one required!");
+            return;
+        }
         FileChooser.ExtensionFilter extensionFilter = new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf");
         FileChooser saver = new FileChooser();
         saver.getExtensionFilters().add(extensionFilter);
         try {
             File document = saver.showSaveDialog(this.stage);
             if (document != null) {
-                Path documentPath = document.toPath();
-                String savePath = documentPath.toString();
-                PdfWriter writer = new PdfWriter(document);
-                PdfDocument cv = new PdfDocument(writer);
-                cv.addNewPage();
-                Document cvDoc = new Document(cv);
+                CV.bakeCV(human, document.getPath());
+                this.pdfSavedLabel.setStyle("-fx-text-fill: green;");
                 this.pdfSavedLabel.setText("CV saved successfully!");
-                cvDoc.close();
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    protected boolean validateInputs() {
+        String firstName = this.firstNameInput.getText().trim();
+        String lastName = this.lastNameInput.getText().trim();
+        if (firstName == "" || lastName == "") {
+            // Validation failed for one of those inputs.
+            this.validationFailed(this.firstNameInput);
+            this.validationFailed(this.lastNameInput);
+            return false;
+        }
+        this.human.setFirstName(firstName);
+        this.human.setLastName(lastName);
+        String email = this.emailInput.getText().trim();
+        String phone = this.phoneInput.getText().trim();
+        if (email == "" && phone == "") {
+            this.validationFailed(this.emailInput);
+            this.validationFailed(this.phoneInput);
+            return false;
+        }
+        String study = this.studyInput.getText().trim();
+        this.human.setEmail(email);
+        this.human.setPhone(phone);
+        if (study == "") {
+            study = "None";
+        }
+        this.human.setStudy(study);
+        return this.validationPassed();
+    }
+
+    protected void validationFailed(TextField input) {
+        String errorStyle = "-fx-text-box-border: #B22222; -fx-focus-color: #B22222;";
+        String okStyle = "-fx-text-box-border: black;";
+        if (input.getText().trim() == "") {
+            input.setStyle(errorStyle);
+        } else {
+            input.setStyle(okStyle);
+        }
+    }
+
+    protected boolean validationPassed() {
+        String okStyle = "-fx-text-box-border: black;";
+        this.firstNameInput.setStyle(okStyle);
+        this.lastNameInput.setStyle(okStyle);
+        this.emailInput.setStyle(okStyle);
+        this.phoneInput.setStyle(okStyle);
+        return true;
     }
 
 }

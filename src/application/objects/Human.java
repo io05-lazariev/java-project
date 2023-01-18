@@ -31,24 +31,48 @@ public class Human {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public String getPhone() {
+        return this.phone;
+    }
+
     public void setStudy(String study) {
         this.study = study;
+    }
+
+    public String getStudy() {
+        return this.study;
     }
 
     public void addSkill(String skill) {
         this.skills.add(skill);
     }
 
+    public ArrayList<String> getSkills() {
+        return this.skills;
+    }
+
     public void setLanguage(Language language, int langIndex) {
         this.languages.set(langIndex, language);
+    }
+
+    public ArrayList<Language> getLanguages() {
+        return this.languages;
     }
 
     public void addLangauge(Language language) {
@@ -59,12 +83,27 @@ public class Human {
         return this.languages.get(languageIndex);
     }
 
+    public void setExperience(int index, Experience experience) {
+        this.experiences.set(index, experience);
+    }
+
     public void addExperience(Experience experience) {
+        // Index == size of list BEFORE adding items.
+        int index = this.experiences.size();
+        experience.setId(index);
         this.experiences.add(experience);
+    }
+
+    public ArrayList<Experience> getExperience() {
+        return this.experiences;
     }
 
     public void setProfileImage(File image) {
         this.profileImage = image;
+    }
+
+    public File getProfileImage() {
+        return this.profileImage;
     }
 
 }

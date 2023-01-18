@@ -53,13 +53,13 @@
                            <left>
                               <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="First name">
+                                    <Label text="First name*">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="firstNameInput" />
-                                    <Label text="Email">
+                                    <Label text="Email**">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -71,13 +71,13 @@
                            <right>
                               <VBox prefHeight="165.0" prefWidth="150.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Label text="Last name">
+                                    <Label text="Last name*">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="lastNameInput" />
-                                    <Label text="Phone">
+                                    <Label text="Phone**">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -138,15 +138,7 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="167.0" prefWidth="418.0" vbarPolicy="ALWAYS" vmax="50.0">
-                                      <content>
-                                        <AnchorPane fx:id="experiencePane" minHeight="0.0" minWidth="0.0" prefHeight="166.0" prefWidth="390.0">
-                                             <children>
-                                                <VBox fx:id="experiencesBox" prefHeight="165.0" prefWidth="391.0" />
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </ScrollPane>
+                                    <ListView fx:id="experienceList" layoutX="-2.0" layoutY="-2.0" prefHeight="170.0" prefWidth="420.0" />
                                  </children>
                               </AnchorPane>
                           </content>
