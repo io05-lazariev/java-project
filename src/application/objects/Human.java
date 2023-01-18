@@ -83,7 +83,14 @@ public class Human {
         return this.languages.get(languageIndex);
     }
 
+    public void setExperience(int index, Experience experience) {
+        this.experiences.set(index, experience);
+    }
+
     public void addExperience(Experience experience) {
+        // Index == size of list BEFORE adding items.
+        int index = this.experiences.size();
+        experience.setId(index);
         this.experiences.add(experience);
     }
 

@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -75,6 +76,9 @@ public class BuilderController extends ControllerBase {
 
     @FXML
     AnchorPane experiencePane;
+
+    @FXML
+    ListView<VBox> experienceList;
 
     @FXML
     Label pdfSavedLabel;
@@ -198,18 +202,22 @@ public class BuilderController extends ControllerBase {
         VBox expBox = new VBox();
 
         Label company = new Label(experience.getCompany());
+        company.setId("companyField");
         Font companyFont = Font.font("System", FontWeight.BOLD, FontPosture.REGULAR, 18);
         company.setFont(companyFont);
 
         Label position = new Label(experience.getPosition());
+        position.setId("positionField");
         Font positionFont = Font.font("System", FontWeight.NORMAL, FontPosture.REGULAR, 16);
         position.setFont(positionFont);
 
         Label years = new Label(experience.getYears());
+        years.setId("yearsField");
         Font yearsFont = Font.font("System", FontWeight.THIN, FontPosture.REGULAR, 12);
         years.setFont(yearsFont);
         
         Label description = new Label(experience.getShortDescription());
+        description.setId("descriptionField");
         expBox.getChildren().addAll(company, position, years, description);
         expBox.setStyle(
             "-fx-padding: 5;" +
@@ -221,7 +229,34 @@ public class BuilderController extends ControllerBase {
         expBox.setOnMouseClicked((e) -> {
             this.editExperience(experience);
         });
-        experiencesBox.getChildren().add(expBox);
+        //experiencePane.getChildren().add(expBox);
+        //experiencesBox.getChildren().add(expBox);
+        this.experienceList.getItems().add(expBox);
+    }
+
+    protected void updateExperience(Experience experience) {
+        int experienceId = experience.getId();
+        VBox experienceEntry = this.experienceList.getItems().get(experienceId);
+        for(Node field : experienceEntry.getChildren()) {
+            if (field.getClass() != Label.class) {
+                continue;
+            }
+            Label fieldLabel = (Label) field;
+            switch (field.getId()) {
+                case "companyField":
+                    fieldLabel.setText(experience.getCompany());
+                    break;
+                case "positionField":
+                    fieldLabel.setText(experience.getPosition());
+                    break;
+                case "yearsField":
+                    fieldLabel.setText(experience.getYears());
+                    break;
+                case "descriptionField":
+                    fieldLabel.setText(experience.getShortDescription());
+                    break;
+            }
+        }
     }
 
     protected void editExperience(Experience experience) {

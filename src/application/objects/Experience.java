@@ -49,6 +49,46 @@ public class Experience {
         this.years = workingYears;
     }
 
+    public void updateFields(
+        String company,
+        String position,
+        int yearStarted,
+        int yearFinished,
+        String shortDescription
+    ) {
+        this.company = company;
+        this.position = position;
+        this.shortDescription = shortDescription;
+        String finished = Integer.toString(yearFinished);
+        this.finished = true;
+        String started = Integer.toString(yearStarted);
+        String workingYears = started + "-" + finished;
+        this.years = workingYears;
+    }
+
+    public void updateFields(
+        String company,
+        String position,
+        int yearStarted,
+        String shortDescription
+    ) {
+        this.company = company;
+        this.position = position;
+        this.shortDescription = shortDescription;
+        String started = Integer.toString(yearStarted);
+        this.finished = false;
+        String workingYears = started + "-Present";
+        this.years = workingYears;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int index) {
+        this.id = index;
+    }
+
     public String getCompany() {
         return this.company;
     }
